@@ -1,73 +1,173 @@
-# React + TypeScript + Vite
+# Parking Aggregator App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a web application for finding and comparing parking spaces in Bucharest. It is implemented as an MVP (Minimum Viable Product) based on the initial project idea.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Overview
 
-## React Compiler
+The application allows users to:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* search for parking locations
+* filter and sort results
+* view availability and predictions
+* compare multiple parking options
+* save favorite locations
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Technologies Used
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+* React with TypeScript
+* TailwindCSS
+* React Router
+* LocalStorage
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Functionalities
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 1. Parking Data
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Parking data is defined in `parkingData.ts`.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Each parking location contains:
+
+* name, type and address
+* total and available spots
+* price per hour
+* distance from user
+* traffic level
+* estimated arrival time (ETA)
+* rating
+* coordinates (latitude and longitude)
+
+---
+
+### 2. Filtering and Search
+
+Implemented in `Filters.tsx`.
+
+Users can:
+
+* search by name, area or address
+* filter by type (Mall, Office, Hypermarket)
+* filter by availability status
+* set a maximum distance
+* sort results by:
+
+  * recommendation
+  * distance
+  * availability
+  * predicted availability
+  * price
+
+---
+
+### 3. Recommendation System
+
+Implemented in `parkingUtils.ts`.
+
+Each parking receives a score based on:
+
+* number of free spots
+* distance
+* ETA
+* traffic level
+* price
+* rating
+
+The parking with the highest score is shown as the main recommendation.
+
+---
+
+### 4. Real-Time Simulation
+
+Implemented in `useParking.ts`.
+
+* Parking availability updates every few seconds
+* Values are randomly adjusted within valid limits
+* This simulates real-time data
+
+---
+
+### 5. Prediction System
+
+Implemented in `parkingUtils.ts`.
+
+The app estimates available spots depending on time:
+
+* current moment
+* 30 minutes
+* 60 minutes
+* evening
+
+Predictions are based on traffic level and current availability.
+
+---
+
+### 6. Favorites
+
+Users can save parking locations as favorites.
+
+* Stored in LocalStorage
+* Displayed in the Favorites page
+
+---
+
+### 7. Compare Feature
+
+Users can compare up to 3 parking locations.
+
+The comparison includes:
+
+* distance
+* price
+* number of free spots
+* traffic level
+* recommendation score
+
+---
+
+### 8. Parking Details Page
+
+Each parking location has a dedicated page that includes:
+
+* full information
+* prediction details
+* peak hours
+* recommendation score
+* navigation button (Google Maps)
+
+---
+
+### 9. Routing
+
+Implemented using React Router.
+
+Available pages:
+
+* Home page (list + filters)
+* Parking details page
+* Favorites page
+* Compare page
+
+---
+
+## Notes
+
+* The application uses mock data (no real API integration)
+* The map is simulated (no real map library yet)
+* The project is structured to allow future backend integration
+
+---
+
+## Future Improvements
+
+* integration with real parking APIs
+* real map integration (Google Maps or Mapbox)
+* user authentication
+* booking functionality
+* improved prediction algorithms
+
+---
