@@ -21,7 +21,6 @@ import type {
   SortOption,
 } from "../types/parking";
 
-// --- SHIMS UI ---
 const Card = ({ children, className = "", ...props }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
     className={`bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden ${className}`}
@@ -269,7 +268,7 @@ export default function HomePage() {
               {filtered.length === 0 && (
                 <Card>
                   <CardContent className="p-10 text-center text-slate-500">
-                    Nu existÄ parcÄri care sÄ corespundÄ filtrelor selectate.
+                    Nu există parcări care să corespundă filtrelor selectate.
                   </CardContent>
                 </Card>
               )}
